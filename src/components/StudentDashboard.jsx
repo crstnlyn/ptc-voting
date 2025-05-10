@@ -19,7 +19,7 @@ import Stepper from "./Stepper";
 import { StepperContext } from "./StepperContext";
 import Personal from "./steps/Personal";
 import Identification from "./steps/Identification";
-import { toast } from "react-toastify";
+import { toast, Zoom } from "react-toastify";
 import { format } from "date-fns";
 import { supabase } from "./config/supabase";
 import CandicacyDetails from "./steps/CandicacyDetails";
@@ -182,6 +182,7 @@ const StudentDashboard = () => {
             profilePic: profilePicUrl,
             schoolId: schoolIDUrl,
             createdAtDate: formattedDate,
+            status: "pending",
           });
           toast.success("Form is submitted!", {
             position: "top-center",
