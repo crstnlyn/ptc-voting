@@ -41,7 +41,6 @@ const RegForm = () => {
         setLoading(true);
         await createUserWithEmailAndPassword(auth, reg_email, reg_password);
         const user = auth.currentUser;
-        console.log(user);
         if (user) {
           await setDoc(doc(db, "Users", user.uid), {
             firstName: reg_fName,

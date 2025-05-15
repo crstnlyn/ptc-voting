@@ -11,7 +11,7 @@ import Loading from "./Loading";
 const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isModalOpen, setModalOpen] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -19,14 +19,12 @@ const Registration = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      // Create a new account using email and password
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Successfully login!", {
+      toast.success("Successfully logged in!", {
         position: "top-center",
       });
       navigate("/student");
     } catch (err) {
-      // Show any error message from Firebase
       toast.error(err.message, {
         position: "top-center",
       });
@@ -38,80 +36,75 @@ const Registration = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className=" w-full h-screen bg-radial from-[rgb(38_184_28)] from-0% to-[rgb(24_35_15)] flex items-center justify-center ">
-        <div
-          id="login"
-          className="lg:h-[70%] h-[70%] py-5 w-[90%] lg:w-[70%] bg-white shadow-lg rounded-[10px] flex border flex-col lg:flex-row gap-5 lg:gap-0"
-        >
-          <div className="lg:w-1/2 flex items-center justify-center flex-col gap-2 ">
+      <div className="h-screen w-full h-sceen flex items-center justify-center bg-radial from-[rgb(38_184_28)] from-0% to-[rgb(24_35_15)] p-4">
+        <div className="w-full max-w-5xl lg:h-[70%] h-[auto]  bg-white shadow-lg rounded-xl overflow-hidden flex flex-col lg:flex-row ">
+          {/* Left Section */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 bg-white lg:border-r-2">
             <img
               src={image}
-              alt="asdas"
-              className="lg:w-[300px] lg:h-[300px] size-50 object-cover"
+              alt="PTC Logo"
+              className="lg:w-[300px] lg:h-[300px] size-50  object-contain mb-4 "
             />
-            <h1 className="text-xl font-bold lg:hid ">PTCian's Choice</h1>
+            <h1 className="text-2xl font-bold text-center">PTCian's Choice</h1>
           </div>
-          <div
-            id="right"
-            className=" lg:w-1/2 flex flex-col items-center justify-center gap-[10px] lg:border-l-2"
-          >
-            <form
-              onSubmit={handleSignin}
-              className="flex flex-col gap-[10px] w-full justify-center items-center lg:px-15  px-5 "
-            >
-              <div id="username-field" className="flex flex-col  h-auto w-full">
-                <label htmlFor="username" className="text-left">
+
+          {/* Right Section */}
+          <div className="w-full lg:w-1/2 p-6 flex flex-col justify-center gap-4">
+            <form onSubmit={handleSignin} className="space-y-4">
+              <div>
+                <label htmlFor="username" className="block font-semibold">
                   Username:
                 </label>
                 <input
-                  className=" h-[40px] rounded-[5px] border-2 pl-2 focus:outline-2 "
                   type="text"
                   id="username"
                   name="username"
                   value={email}
-                  placeholder="juandelacruz123@paterostechnologicalcollege.edu.ph"
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="juandelacruz123@paterostechnologicalcollege.edu.ph"
+                  className="w-full h-10 border-2 rounded-md px-3 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
-              <div id="password-field" className="flex flex-col h-auto w-full">
-                <label htmlFor="password" className="text-left">
+              <div>
+                <label htmlFor="password" className="block font-semibold">
                   Password:
                 </label>
                 <input
-                  className=" w-full h-[40px] rounded-[5px] text-[1em] pl-2 border-2 focus:outline-2"
                   type="password"
                   id="password"
-                  value={password}
                   name="password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-10 border-2 rounded-md px-3 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
               <button
-                id="login-btn"
                 type="submit"
-                className="h-[40px] w-full shadow-md font-bold bg-[#0bc94e] text-black rounded-[30px] cursor-pointer border-black border-2 hover:bg-green-700 hover:text-white transition-all duration-300"
+                className="w-full h-10 bg-green-500 hover:bg-green-700 text-white font-bold rounded-full transition-all duration-300 border-2 border-black"
               >
                 Log in
               </button>
             </form>
 
-            <p>
-              Create new account?
-              <a
+            <p className="text-center">
+              Create new account?{" "}
+              <span
                 onClick={() => setModalOpen(true)}
-                className="text-[rgb(60_140_231)] cursor-pointer underline underline-offset-1 "
+                className="text-blue-600 cursor-pointer underline"
               >
-                {" "}
                 Sign up
-              </a>
+              </span>
             </p>
           </div>
-
-          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-            <h1 className="text-2xl font-bold">Register</h1>
-            <RegForm />
-          </Modal>
         </div>
+
+        {/* Modal */}
+        <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+          <h1 className="text-2xl font-bold mb-4">Register</h1>
+          <RegForm />
+        </Modal>
+
+        <ToastContainer />
       </div>
     </>
   );
