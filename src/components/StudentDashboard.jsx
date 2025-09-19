@@ -242,7 +242,6 @@ const StudentDashboard = () => {
               ) : (
                 <div className="pt-5">
                   <Stepper steps={steps} currentStep={currentStep} />
-
                   <div className="my-10 p-1">
                     <StepperContext.Provider
                       value={{
@@ -255,7 +254,6 @@ const StudentDashboard = () => {
                       {displaySteps(currentStep)}
                     </StepperContext.Provider>
                   </div>
-
                   {/* Stepper Controller */}
                   <div className="w-full px-5 pb-4">
                     <StepperController

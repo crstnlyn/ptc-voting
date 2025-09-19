@@ -7,6 +7,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Policy from "./components/Policy";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./components/AuthContext";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import Dashboard from "./components/admin/Dashboard";
+import { Navigate } from "react-router-dom";
+import Candidates from "./components/admin/Candidates";
+import Analytics from "./components/admin/Analytics";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,23 +22,29 @@ function App() {
         <Router>
           <div id="App" className="w-full h-full">
             <Routes>
-              <Route path="/" element={<Registration />}></Route>
+              <Route path="/" element={<Analytics></Analytics>} />
+              <Route path="/login" element={<Registration />}></Route>
               <Route
                 path="/student"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute type="student">
                     <StudentDashboard />
                   </ProtectedRoute>
                 }
               ></Route>
               <Route
-                path="/policy"
+                path="/admin"
                 element={
-                  <ProtectedRoute>
-                    <Policy />
+                  <ProtectedRoute type="admin">
+                    <AdminDashboard></AdminDashboard>
                   </ProtectedRoute>
                 }
-              ></Route>
+              >
+                <Route index element={<Navigate to="dash" replace />} />
+                <Route path="dash" element={<Dashboard />} />
+                <Route path="candidate" element={<Candidates />} />
+                <Route path="analytics" element={<Analytics />} />
+              </Route>
             </Routes>
           </div>
         </Router>

@@ -77,13 +77,13 @@ const RegForm = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="w-full h-auto">
+      <div className="w-full h-auto text-black">
         <form
           action=""
           onSubmit={handeleSignIn}
           className="w-full border-black px-10 flex flex-col gap-3"
         >
-          <div id="reg-fname_input" className="flex flex-col">
+          <div id="reg-fname_input" className="flex flex-col ">
             <label htmlFor="reg_fName">First Name:</label>
             <input
               type="text"
@@ -93,7 +93,7 @@ const RegForm = () => {
               onChange={(e) => setRegFname(e.target.value)}
             />
           </div>
-          <div id="reg-fname_input" className="flex flex-col">
+          <div id="reg-fname_input" className="flex flex-col ">
             <label htmlFor="reg_lName">Last Name:</label>
             <input
               type="text"

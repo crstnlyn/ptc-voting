@@ -10,7 +10,7 @@ const Aside = ({ navOpen, userDetails }) => {
 
   return (
     <div>
-      <aside className="bg-[#66ad14] lg:flex lg:w-75     text-white px-3 pt-20 hidden lg:h-screen flex-col items-center gap-5 ">
+      <aside className="bg-[#66ad14] lg:flex lg:w-75   text-white px-3 pt-20 hidden lg:h-screen flex-col items-center gap-5 ">
         <div className="flex flex-col items-center gap-5 w-full h-full  ">
           <img src={dp} alt="Default Pic" className="w-32 h-32 rounded-full" />
           <h1 className="mt-3 text-xl font-semibold">Welcome!</h1>

@@ -5,13 +5,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnFLrc3qynBLtCArA4g6aazWBJ1k3a2-c",
-  authDomain: "voting-system-313e9.firebaseapp.com",
-  projectId: "voting-system-313e9",
-  storageBucket: "voting-system-313e9.firebasestorage.app",
-  messagingSenderId: "601269247173",
-  appId: "1:601269247173:web:1102bd2f5a9c7c7c9464ac",
-  measurementId: "G-WG9E968BL3",
+  apiKey: "AIzaSyDAp6knvz7JrocABDdMxaVVSs9izGomS1M",
+  authDomain: "ptc-voting-system.firebaseapp.com",
+  projectId: "ptc-voting-system",
+  storageBucket: "ptc-voting-system.firebasestorage.app",
+  messagingSenderId: "525554985900",
+  appId: "1:525554985900:web:e7e0e71a6b2dd719eea809",
+  measurementId: "G-D37SKN9BSR",
 };
 
 const app = initializeApp(firebaseConfig);

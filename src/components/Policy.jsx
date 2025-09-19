@@ -13,3 +13,4 @@ const Policy = () => {
 };
 
 export default Policy;
+6
