@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/Firebase";
 
 const SideMenu = () => {
+  const handleSignout = () => {
+    signOut(auth);
+  };
   return (
     <div className="w-full h-full bg-[#66ad14] text-white p-4 shadow-lg z-1 flex flex-col gap-5">
       <div className="flex">
@@ -152,20 +157,16 @@ const SideMenu = () => {
       </div>
 
       <div className="w-full ">
-        <button className="btn btn-soft btn-error w-full "> Logout</button>
+        <button
+          className="btn btn-soft btn-error w-full "
+          onClick={handleSignout}
+        >
+          {" "}
+          Logout
+        </button>
       </div>
     </div>
   );
 };
 
 export default SideMenu;
-
-function CustomLink({ to, children, ...props }) {
-  const path = window.location.pathname;
-
-  return (
-    <li className={path === to ? "bg-red-200 " : ""}>
-      <Link to={to}>{children}</Link>
-    </li>
-  );
-}
