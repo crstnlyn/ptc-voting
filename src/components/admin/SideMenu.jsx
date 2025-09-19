@@ -87,7 +87,14 @@ const SideMenu = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="analytics">
+                <NavLink
+                  to="analytics"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "bg-green-100 text-green-700 font-medium" : ""
+                    }`
+                  }
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-5"
