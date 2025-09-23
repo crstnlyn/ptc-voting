@@ -133,7 +133,7 @@ const StudentDashboard = () => {
     const filePath = `public/${Date.now()}_${file.name}`; // Unique file path
 
     const { data, error } = await supabase.storage
-      .from("candidate-documents") // your bucket
+      .from("candidatePic") // your bucket
       .upload(filePath, file, {
         cacheControl: "3600",
         upsert: false,
@@ -145,7 +145,7 @@ const StudentDashboard = () => {
     }
 
     const { publicUrl } = supabase.storage
-      .from("candidate-documents")
+      .from("candidatePic")
       .getPublicUrl(filePath).data;
 
     return publicUrl;

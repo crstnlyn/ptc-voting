@@ -48,9 +48,9 @@ const CandicacyDetails = () => {
               <option value="President">President</option>
               <option value="Vice-President">Vice-President</option>
               <option value="Secretary">Secretary</option>
-              <option value="Secretary">Treasure</option>
-              <option value="Secretary">Auditor</option>
-              <option value="Secretary">P.I.O</option>
+              <option value="Treasurer">Treasurer</option>
+              <option value="Auditor">Auditor</option>
+              <option value="P.I.O">P.I.O</option>
             </select>
           </div>
 

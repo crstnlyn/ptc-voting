@@ -4,14 +4,14 @@ import Registration from "./components/Registration";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Policy from "./components/Policy";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./components/AuthContext";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import Dashboard from "./components/admin/Dashboard";
 import { Navigate } from "react-router-dom";
 import Candidates from "./components/admin/Candidates";
-import Analytics from "./components/admin/Analytics";
+import PartialResult from "./components/admin/partialresult";
+import Applicants from "./components/admin/Applicants";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,7 +22,7 @@ function App() {
         <Router>
           <div id="App" className="w-full h-full">
             <Routes>
-              <Route path="/" element={<Analytics></Analytics>} />
+              <Route path="/" element={<PartialResult></PartialResult>} />
               <Route path="/login" element={<Registration />}></Route>
               <Route
                 path="/student"
@@ -43,7 +43,8 @@ function App() {
                 <Route index element={<Navigate to="dash" replace />} />
                 <Route path="dash" element={<Dashboard />} />
                 <Route path="candidate" element={<Candidates />} />
-                <Route path="analytics" element={<Analytics />} />
+                <Route path="partialresult" element={<PartialResult />} />
+                <Route path="applicants" element={<Applicants />} />
               </Route>
             </Routes>
           </div>
