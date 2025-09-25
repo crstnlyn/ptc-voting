@@ -51,7 +51,7 @@ const Applicants = () => {
   };
 
   return (
-    <div className="min-w-full  p-4 bg-base-200">
+    <div className="min-w-full  p-4 bg-base-100">
       {loading ? (
         <div className="w-full flex align-center justify-center">
           <span className="loading loading-spinner text-success"></span>

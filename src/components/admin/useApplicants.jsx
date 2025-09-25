@@ -22,7 +22,7 @@ const useApplicants = ({ setApplicants, setLoading }) => {
       }
     );
 
-    return unsub; // 👈 valid now
+    return unsub;
   };
 
   return { fetchApplicants };
