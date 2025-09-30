@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useApplicants from "./useApplicants";
+import useApplicants from "../hooks/useApplicants";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/Firebase";
 
@@ -98,10 +98,6 @@ const Applicants = () => {
                 </div>
                 <div className="collapse-content">
                   <div className="card bg-base-200 p-4 rounded-xl mb-3">
-                    <p>
-                      <span className="font-semibold">Email: </span>
-                      {applicant.email}
-                    </p>
                     <p>
                       <span className="font-semibold">StudentID: </span>
                       {applicant.studentID}

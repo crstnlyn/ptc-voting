@@ -9,7 +9,7 @@ const AdminNav = () => {
     signOut(auth);
   };
   return (
-    <div className="navbar h-full bg-base-100 shadow-sm  border-[#66ad14] border-b-6 relative">
+    <div className="navbar h-full bg-base-100 shadow-sm  border-[#66ad14] border-b-6 relative z-100">
       <div className="flex">
         <img
           src={logo}

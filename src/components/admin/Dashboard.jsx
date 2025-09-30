@@ -3,7 +3,7 @@ import { UserCheck, UserRoundPen, Users, UserStar } from "lucide-react";
 import Card from "./Card";
 import { db } from "../config/Firebase";
 import ChartComponent from "./ChartComponent";
-import useDashboardCount from "./useDashboardCount";
+import useDashboardCount from "../hooks/useDashboardCount";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -47,7 +47,10 @@ const Dashboard = () => {
                 <Users className="size-10 bg-accent/10 p-2 rounded-full text-accent" />
               }
               footer={
-                <button className="btn btn-accent text-base-100 w-full">
+                <button
+                  className="btn btn-accent text-base-100 w-full"
+                  onClick={() => navigate("/admin/voters")}
+                >
                   View
                 </button>
               }
@@ -76,7 +79,10 @@ const Dashboard = () => {
                 <UserStar className="size-10 bg-warning/10 p-2 rounded-full text-warning" />
               }
               footer={
-                <button className="btn btn-warning text-base-100 w-full">
+                <button
+                  className="btn btn-warning text-base-100 w-full"
+                  onClick={() => navigate("/admin/candidates")}
+                >
                   View
                 </button>
               }
@@ -89,9 +95,19 @@ const Dashboard = () => {
                 <UserCheck className="size-10 bg-success/10 p-2 rounded-full text-success" />
               }
               footer={
-                <button className="btn btn-success text-base-100 w-full">
-                  View
-                </button>
+                <div className="w-full h-12 flex items-center justify-center gap-2">
+                  <div className="w-full h-3 bg-gray-200 rounded-full ">
+                    <div
+                      className="w-full h-3 bg-success rounded-full"
+                      style={{
+                        width: `${(votescastedCount / userCount) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <span className="text-xs font-medium text-success ">
+                    {(votescastedCount / userCount) * 100}%
+                  </span>
+                </div>
               }
             />
           </div>

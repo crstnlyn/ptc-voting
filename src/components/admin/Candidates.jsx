@@ -1,5 +1,5 @@
 import React from "react";
-import useCandidates from "./useCandidates";
+import useCandidates from "../hooks/useCandidates";
 
 const Candidates = () => {
   const { groupedCandidates, loading } = useCandidates();
@@ -18,10 +18,10 @@ const Candidates = () => {
           <h1 className="text-center text-xl bg-primary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             President
           </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
+          {(groupedCandidates["President"] || []).length === 0 ? (
             <p className="text-center font-bold text-gray-700">No Candidate</p>
           ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
+            (groupedCandidates["President"] || []).map((c) => (
               <div className="card shadow-md " key={c.id}>
                 <div className=" card-body flex-row justify-between items-center">
                   <div className="flex flex-col gap-1">
@@ -76,10 +76,10 @@ const Candidates = () => {
           <h1 className="text-center text-xl bg-accent rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             Secretary
           </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
+          {(groupedCandidates["Secretary"] || []).length === 0 ? (
             <p className="text-center font-bold text-gray-700">No Candidate</p>
           ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
+            (groupedCandidates["Secretary"] || []).map((c) => (
               <div className="card shadow-md " key={c.id}>
                 <div className=" card-body flex-row justify-between items-center">
                   <div className="flex flex-col gap-1">
@@ -105,10 +105,10 @@ const Candidates = () => {
           <h1 className="text-center text-xl bg-info rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             Treasurer
           </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
+          {(groupedCandidates["Treasurer"] || []).length === 0 ? (
             <p className="text-center font-bold text-gray-700">No Candidate</p>
           ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
+            (groupedCandidates["Treasurer"] || []).map((c) => (
               <div className="card shadow-md " key={c.id}>
                 <div className=" card-body flex-row justify-between items-center">
                   <div className="flex flex-col gap-1">
@@ -134,10 +134,10 @@ const Candidates = () => {
           <h1 className="text-center text-xl bg-warning rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             Auditor
           </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
+          {(groupedCandidates["Auditor"] || []).length === 0 ? (
             <p className="text-center font-bold text-gray-700">No Candidate</p>
           ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
+            (groupedCandidates["Auditor"] || []).map((c) => (
               <div className="card shadow-md " key={c.id}>
                 <div className=" card-body flex-row justify-between items-center">
                   <div className="flex flex-col gap-1">
@@ -163,10 +163,10 @@ const Candidates = () => {
           <h1 className="text-center text-xl bg-error rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             P.I.O
           </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
+          {(groupedCandidates["P.I.O"] || []).length === 0 ? (
             <p className="text-center font-bold text-gray-700">No Candidate</p>
           ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
+            (groupedCandidates["P.I.O"] || []).map((c) => (
               <div className="card shadow-md " key={c.id}>
                 <div className=" card-body flex-row justify-between items-center">
                   <div className="flex flex-col gap-1">

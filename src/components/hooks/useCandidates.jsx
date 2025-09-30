@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import {
   collection,
   getDocs,
@@ -17,7 +17,6 @@ const useCandidates = () => {
     const candidateColl = collection(db, "Candidates");
     const q = query(candidateColl, where("status", "==", "approved"));
 
-    // ✅ Subscribe to Firestore updates
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {

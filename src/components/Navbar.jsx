@@ -5,7 +5,7 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ navOpen, toggleNav }) => {
   return (
-    <div className="fixed  w-full h-20 z-1 border-[#66ad14] border-b-6 lg:px-10 px-5  py-0 bg-[#F5F7F8] shadow-lg">
+    <div className="fixed  w-full h-20 z-100 border-[#66ad14] border-b-6 lg:px-10 px-5  py-0 bg-[#F5F7F8] shadow-lg">
       <nav className="flex h-full items-center">
         <img
           src={logo}
