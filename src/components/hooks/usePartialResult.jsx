@@ -33,7 +33,7 @@ const usePartialResult = () => {
           return {
             id: doc.id,
             ...d,
-            voteCount: Number(d.voteCount) || 0, // ✅ ensure number
+            voteCount: Number(d.voteCount) || 0,
           };
         });
         setCandidates(data);

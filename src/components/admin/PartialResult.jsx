@@ -50,7 +50,7 @@ const PartialResult = () => {
           ></div>
         </div>
       </div>
-      <div className="grid grid-cols-8 grid-rows-3 gap-4 ">
+      <div className="grid grid-cols-8  auto-rows-auto gap-4 ">
         <div className="col-span-3 col-start-2 p-4 rounded-box ">
           <h1 className="text-center text-xl bg-primary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             President

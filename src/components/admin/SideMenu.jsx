@@ -103,15 +103,29 @@ const SideMenu = () => {
 
             <ul className="text-base-content">
               <li>
-                <NavLink to="voters">
+                <NavLink
+                  to="voters"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "bg-green-100 text-green-700 font-medium" : ""
+                    }`
+                  }
+                >
                   <UsersRound className="h-8 w-5" />
                   Voters
                 </NavLink>
               </li>
               <li>
-                <NavLink to="">
+                <NavLink
+                  to="manageadmins"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "bg-green-100 text-green-700 font-medium" : ""
+                    }`
+                  }
+                >
                   <UserLock className="h-8 w-5" />
-                  Admin
+                  Admins
                 </NavLink>
               </li>
             </ul>

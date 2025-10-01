@@ -14,6 +14,7 @@ import PartialResult from "./components/admin/PartialResult";
 import Applicants from "./components/admin/Applicants";
 import Home from "./components/Home";
 import Voters from "./components/admin/Voters";
+import ManageAdmin from "./components/admin/ManageAdmin";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -48,6 +49,7 @@ function App() {
                 <Route path="partialresult" element={<PartialResult />} />
                 <Route path="applicants" element={<Applicants />} />
                 <Route path="voters" element={<Voters />} />
+                <Route path="manageadmins" element={<ManageAdmin />} />
               </Route>
             </Routes>
           </div>
