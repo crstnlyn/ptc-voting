@@ -105,7 +105,7 @@ const Dashboard = () => {
                     ></div>
                   </div>
                   <span className="text-xs font-medium text-success ">
-                    {(votescastedCount / userCount) * 100}%
+                    {((votescastedCount / userCount) * 100).toFixed(2)}%
                   </span>
                 </div>
               }

@@ -1,4 +1,11 @@
-import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  snapshotEqual,
+  where,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/Firebase";
 
@@ -8,10 +15,12 @@ const useVoters = () => {
   const [votersCount, setVotersCount] = useState();
   const [candidateCounts, setCandidateCounts] = useState();
   const [votedCounts, setVotedCounts] = useState();
+  const [notVotedCount, setNotVotedCounts] = useState();
 
   const usersColl = collection(db, "Users");
   const q = query(usersColl, where("isCandidate", "==", true));
   const q2 = query(usersColl, where("isVoted", "==", true));
+  const q3 = query(usersColl, where("isVoted", "==", false));
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -60,11 +69,26 @@ const useVoters = () => {
       setVotedCounts(snapshot.size);
     });
 
+    const unsubNotvotedcounts = onSnapshot(q3, (snapshot) => {
+      setNotVotedCounts(snapshot.size);
+    });
+
     return () => {
-      unsubscribe(), unsubVoterscount(), unsubCandidates(), unsubVotedcounts();
+      unsubscribe(),
+        unsubVoterscount(),
+        unsubCandidates(),
+        unsubVotedcounts(),
+        unsubNotvotedcounts;
     };
   }, []);
 
-  return { voters, loading, votersCount, candidateCounts, votedCounts };
+  return {
+    voters,
+    loading,
+    votersCount,
+    candidateCounts,
+    votedCounts,
+    notVotedCount,
+  };
 };
 export default useVoters;

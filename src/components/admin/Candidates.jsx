@@ -1,8 +1,13 @@
 import React from "react";
 import useCandidates from "../hooks/useCandidates";
+import { useState } from "react";
+import { TriangleAlert } from "lucide-react";
 
 const Candidates = () => {
   const { groupedCandidates, loading } = useCandidates();
+  const [open, setOpen] = useState(false);
+  const [newLoading, setLoading] = useState(false);
+
   if (loading) {
     return (
       <div className="w-full h-full flex item-center justify-center">
@@ -10,9 +15,33 @@ const Candidates = () => {
       </div>
     );
   }
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const candidatesSnap = await getDocs(collection(db, "candidates"));
+      const deletePromises = candidatesSnap.docs.map((d) =>
+        deleteDoc(doc(db, "candidates", d.id))
+      );
+      await Promise.all(deletePromises);
+      alert("All candidates removed!");
+    } catch (err) {
+      console.error(err);
+      alert("Error removing candidates.");
+    }
+    setLoading(false);
+    setOpen(false);
+  };
 
   return (
-    <div className="min-w-full h-full p-4">
+    <div className="min-w-full p-4 ">
+      <div className="flex justify-end pr-4 ">
+        <button
+          className="btn btn-error text-base-100 "
+          onClick={() => setOpen(true)}
+        >
+          Clear all candidates
+        </button>
+      </div>
       <div className="grid grid-cols-6 auto-rows-auto gap-4">
         <div className="col-span-3 row-span-2 p-4 rounded-box ">
           <h1 className="text-center text-xl bg-primary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
@@ -189,6 +218,39 @@ const Candidates = () => {
           )}
         </div>
       </div>
+
+      {/* Modal */}
+      {open && (
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg flex gap-2">
+              {" "}
+              <TriangleAlert /> Confirm Delete
+            </h3>
+            <p className="py-4">
+              Are you sure you want to remove <b>all candidates</b>? This cannot
+              be undone.
+            </p>
+
+            <div className="modal-action">
+              <button
+                className="btn btn-outline"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className={`btn btn-error text-base-100 ${
+                  loading ? "loading" : ""
+                }`}
+                onClick={handleDelete}
+              >
+                {loading ? "Deleting..." : "Yes, Delete All"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

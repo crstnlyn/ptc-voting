@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, where, query, onSnapshot } from "firebase/firestore";
+import { collection, where, query, onSnapshot, doc } from "firebase/firestore";
 import { db } from "../config/Firebase";
 
 const usePartialResult = () => {
@@ -7,7 +7,8 @@ const usePartialResult = () => {
   const [groupedCandidates, setGroupedCandidates] = useState({});
   const [loading, setLoading] = useState(true);
   const [userCount, setUserCount] = useState(0);
-  const [votecastedCount, setVotecastedCount] = useState(0); // ✅ fixed spelling
+  const [votecastedCount, setVotecastedCount] = useState(0);
+  const [schedules, setSchedule] = useState(null);
 
   useEffect(() => {
     const candidateColl = collection(db, "Candidates");
@@ -16,13 +17,20 @@ const usePartialResult = () => {
     const usersColl = collection(db, "Users");
     const votesColl = collection(db, "StudentVotes");
 
-    // ✅ Realtime listeners
     const unsubUsers = onSnapshot(usersColl, (snapshot) => {
       setUserCount(snapshot.size);
     });
 
     const unsubVotes = onSnapshot(votesColl, (snapshot) => {
       setVotecastedCount(snapshot.size);
+    });
+
+    const unsubSched = onSnapshot(doc(db, "config", "election"), (snapshot) => {
+      if (snapshot.exists()) {
+        setSchedule(snapshot.data());
+      } else {
+        setSchedule(null);
+      }
     });
 
     const unsubCandidates = onSnapshot(
@@ -68,10 +76,18 @@ const usePartialResult = () => {
       unsubCandidates();
       unsubUsers();
       unsubVotes();
+      unsubSched();
     };
   }, []);
 
-  return { candidates, groupedCandidates, loading, userCount, votecastedCount };
+  return {
+    candidates,
+    groupedCandidates,
+    loading,
+    userCount,
+    votecastedCount,
+    schedules,
+  };
 };
 
 export default usePartialResult;

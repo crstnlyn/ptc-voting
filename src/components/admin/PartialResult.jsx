@@ -4,7 +4,7 @@ import usePartialResult from "../hooks/usePartialResult";
 import { useState } from "react";
 
 const PartialResult = () => {
-  const { groupedCandidates, loading, userCount, votecastedCount } =
+  const { groupedCandidates, loading, userCount, votecastedCount, schedules } =
     usePartialResult();
 
   if (loading) {
@@ -24,7 +24,7 @@ const PartialResult = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            filter: "blur(3px)",
+            filter: "blur(5px)",
             top: 0, // ✅ Added
             left: 0, // ✅ Added
             width: "100%",
@@ -34,12 +34,26 @@ const PartialResult = () => {
           }}
         ></div>
         <div className="w-full mb-4">
-          <h1 className="text-xl text-base-100 font-bold text-center">
-            Election Returns Transmitted {votecastedCount} out of {userCount}{" "}
+          <h2 className="text-center text-xl text-base-100 font-bold">
+            Voting Schedule
+          </h2>
+          <p className="text-center text-base-100">
+            Start:{" "}
+            {schedules?.startTime
+              ? new Date(schedules.startTime).toLocaleString()
+              : "Not set"}{" "}
+            - End:{" "}
+            {schedules?.endTime
+              ? new Date(schedules.endTime).toLocaleString()
+              : "Not set"}
+          </p>
+
+          <h1 className="text-xl text-base-100 font-bold text-center mt-2">
+            Election Returns Transmitted: {votecastedCount} out of {userCount}{" "}
             Voters
           </h1>
-          <h2 className="text-center text-xl text-success font-bold ">
-            {(votecastedCount / userCount) * 100}%
+          <h2 className="text-center text-xl text-success  font-black ">
+            {((votecastedCount / userCount) * 100).toFixed(2)}%
           </h2>
         </div>
 

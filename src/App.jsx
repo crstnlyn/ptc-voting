@@ -15,6 +15,7 @@ import Applicants from "./components/admin/Applicants";
 import Home from "./components/Home";
 import Voters from "./components/admin/Voters";
 import ManageAdmin from "./components/admin/ManageAdmin";
+import CreateSchedule from "./components/admin/CreateScheadule";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -50,6 +51,7 @@ function App() {
                 <Route path="applicants" element={<Applicants />} />
                 <Route path="voters" element={<Voters />} />
                 <Route path="manageadmins" element={<ManageAdmin />} />
+                <Route path="schedule" element={<CreateSchedule />} />
               </Route>
             </Routes>
           </div>

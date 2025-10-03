@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/Firebase";
 import {
+  CalendarCheck,
   ChartColumnBig,
   CircleUserRound,
   House,
@@ -92,6 +93,19 @@ const SideMenu = () => {
                 >
                   <ChartColumnBig className="h-8 w-5" />
                   Partial Result
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="schedule"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "bg-green-100 text-green-700 font-medium" : ""
+                    }`
+                  }
+                >
+                  <CalendarCheck className="h-8 w-5" />
+                  Schedule
                 </NavLink>
               </li>
             </ul>

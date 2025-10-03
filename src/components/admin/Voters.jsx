@@ -1,11 +1,17 @@
 import React from "react";
 import useVoters from "../hooks/useVoters.jsx";
 import Card from "./Card.jsx";
-import { UserRound, UserRoundCheck, UserStar } from "lucide-react";
+import { UserRound, UserRoundCheck, UserStar, UserX } from "lucide-react";
 
 const Voters = () => {
-  const { voters, loading, votersCount, candidateCounts, votedCounts } =
-    useVoters();
+  const {
+    voters,
+    loading,
+    votersCount,
+    candidateCounts,
+    votedCounts,
+    notVotedCount,
+  } = useVoters();
 
   if (loading) {
     return (
@@ -18,7 +24,7 @@ const Voters = () => {
   return (
     <div className="min-w-full p-5 flex flex-col gap-2">
       <div className="grid grid-cols-4 grid-rows-1 gap-4">
-        <div className="col-span-2 card shadow-sm">
+        <div className="col-start-1 card shadow-sm">
           <div className="card-body">
             <div className="card-title justify-between ">
               <div className="flex gap-2 text-info">
@@ -28,13 +34,23 @@ const Voters = () => {
             </div>
           </div>
         </div>
-        <div className="col-start-3 card shadow-sm">
+        <div className="col-start-2 card shadow-sm">
           <div className="card-body">
             <div className="card-title justify-between ">
               <div className="flex gap-2 text-warning">
                 <UserStar /> <h1>Candidates</h1>
               </div>
               <span> {candidateCounts}</span>
+            </div>
+          </div>
+        </div>
+        <div className="col-start-3 card shadow-sm">
+          <div className="card-body">
+            <div className="card-title justify-between ">
+              <div className="flex gap-2 text-error">
+                <UserX /> <h1>Not Yet Voted</h1>
+              </div>
+              <span> {notVotedCount}</span>
             </div>
           </div>
         </div>
