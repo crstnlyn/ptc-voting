@@ -14,6 +14,7 @@ const useApplicants = ({ setApplicants, setLoading }) => {
           id: doc.id,
           ...doc.data(),
         }));
+
         setApplicants(applicants);
         setLoading(false);
       },

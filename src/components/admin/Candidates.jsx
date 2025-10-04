@@ -2,6 +2,8 @@ import React from "react";
 import useCandidates from "../hooks/useCandidates";
 import { useState } from "react";
 import { TriangleAlert } from "lucide-react";
+import { toast } from "react-toastify";
+import { collection, getDocs, updateDoc } from "firebase/firestore";
 
 const Candidates = () => {
   const { groupedCandidates, loading } = useCandidates();
@@ -22,216 +24,110 @@ const Candidates = () => {
       const deletePromises = candidatesSnap.docs.map((d) =>
         deleteDoc(doc(db, "candidates", d.id))
       );
+
       await Promise.all(deletePromises);
-      alert("All candidates removed!");
+      await resetAllVotes();
+      toast.success("All candidates removed!", {
+        position: "top-center",
+      });
     } catch (err) {
       console.error(err);
-      alert("Error removing candidates.");
+      toast.error("Error removing candidates.", {
+        position: "top-center",
+      });
     }
     setLoading(false);
     setOpen(false);
   };
 
+  const resetAllVotes = async () => {
+    try {
+      const userSnapshot = await getDocs(collection(db, "Users"));
+
+      const updatePromises = userSnapshot.docs.map(async (userDoc) => {
+        const userRef = doc(db, "Users", userDoc.id);
+        await updateDoc(userRef, { isVoted: false, isCandiate: false });
+      });
+
+      await Promise.all(updatePromises);
+      toast.success("All student votes have been reset");
+    } catch (error) {
+      toast.error("Error in reseting the votes of all student");
+    }
+  };
+
   return (
-    <div className="min-w-full p-4 ">
-      <div className="flex justify-end pr-4 ">
+    <div className="min-w-full p-6">
+      <div className="flex justify-end mb-4">
         <button
-          className="btn btn-error text-base-100 "
+          className="btn btn-error text-base-100"
           onClick={() => setOpen(true)}
         >
           Clear all candidates
         </button>
       </div>
-      <div className="grid grid-cols-6 auto-rows-auto gap-4">
-        <div className="col-span-3 row-span-2 p-4 rounded-box ">
-          <h1 className="text-center text-xl bg-primary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            President
-          </h1>
-          {(groupedCandidates["President"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["President"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
+
+      {/* Candidate Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* ✅ Each Position Section */}
+        {[
+          { title: "President", color: "bg-primary" },
+          { title: "Vice-President", color: "bg-secondary" },
+          { title: "Secretary", color: "bg-accent" },
+          { title: "Treasurer", color: "bg-info" },
+          { title: "Auditor", color: "bg-warning" },
+          { title: "P.I.O", color: "bg-error" },
+        ].map(({ title, color }) => (
+          <div key={title} className="p-4 rounded-lg bg-base-100 ">
+            <h1
+              className={`text-center text-lg sm:text-xl font-bold text-base-100 ${color} rounded-t-md py-2`}
+            >
+              {title}
+            </h1>
+
+            {(groupedCandidates[title] || []).length === 0 ? (
+              <p className="text-center font-bold text-gray-600 mt-3">
+                No Candidate
+              </p>
+            ) : (
+              (groupedCandidates[title] || []).map((c) => (
+                <div
+                  key={c.id}
+                  className="card bg-base-100 shadow-md mb-2 hover:shadow-lg transition-all duration-200"
+                >
+                  <div className="card-body flex flex-col lg:flex-row-reverse sm:flex-row justify-between items-center gap-4">
+                    <img
+                      src={c.profilePic}
+                      alt="Candidate"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
+                    />
+                    <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                      <h1 className="text-lg font-bold">
+                        {c.firstname} {c.middleName} {c.lastname}
+                      </h1>
+                      <p className="text-sm text-gray-600">{c.studentID}</p>
+                      <p className="text-sm text-gray-700">
+                        {c.course} - {c.yearLevel}
+                      </p>
+                    </div>
                   </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div className="col-span-3 row-span-2 col-start-4 p-4 rounded-box">
-          <h1 className="text-center text-xl bg-secondary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            Vice-President
-          </h1>
-          {(groupedCandidates["Vice-President"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["Vice-President"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
-                  </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div className="col-span-3 row-span-2 row-start-3  p-4 rounded-box ">
-          <h1 className="text-center text-xl bg-accent rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            Secretary
-          </h1>
-          {(groupedCandidates["Secretary"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["Secretary"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
-                  </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div className="col-span-3 row-span-2 col-start-4 row-start-3  p-4 rounded-box ">
-          <h1 className="text-center text-xl bg-info rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            Treasurer
-          </h1>
-          {(groupedCandidates["Treasurer"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["Treasurer"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
-                  </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div className="col-span-3 row-span-2 row-start-5  p-4 rounded-box ">
-          <h1 className="text-center text-xl bg-warning rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            Auditor
-          </h1>
-          {(groupedCandidates["Auditor"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["Auditor"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
-                  </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-        <div className="col-span-3 row-span-2 col-start-4 row-start-5  p-4 rounded-box ">
-          <h1 className="text-center text-xl bg-error rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
-            P.I.O
-          </h1>
-          {(groupedCandidates["P.I.O"] || []).length === 0 ? (
-            <p className="text-center font-bold text-gray-700">No Candidate</p>
-          ) : (
-            (groupedCandidates["P.I.O"] || []).map((c) => (
-              <div className="card shadow-md " key={c.id}>
-                <div className=" card-body flex-row justify-between items-center">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-bold">
-                      {c.firstname} {c.middleName} {c.lastname}
-                    </h1>
-                    <p>{c.studentID}</p>
-                    <p>
-                      {c.course} {c.yearLevel}
-                    </p>
-                  </div>
-                  <img
-                    src={c.profilePic}
-                    alt=""
-                    className="w-20 h-20 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+              ))
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Modal */}
       {open && (
         <div className="modal modal-open">
           <div className="modal-box">
-            <h3 className="font-bold text-lg flex gap-2">
-              {" "}
+            <h3 className="font-bold text-lg flex gap-2 items-center">
               <TriangleAlert /> Confirm Delete
             </h3>
             <p className="py-4">
               Are you sure you want to remove <b>all candidates</b>? This cannot
               be undone.
             </p>
-
             <div className="modal-action">
               <button
                 className="btn btn-outline"
@@ -241,11 +137,11 @@ const Candidates = () => {
               </button>
               <button
                 className={`btn btn-error text-base-100 ${
-                  loading ? "loading" : ""
+                  newLoading ? "loading" : ""
                 }`}
                 onClick={handleDelete}
               >
-                {loading ? "Deleting..." : "Yes, Delete All"}
+                {newLoading ? "Deleting..." : "Yes, Delete All"}
               </button>
             </div>
           </div>

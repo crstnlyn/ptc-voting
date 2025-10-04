@@ -23,15 +23,7 @@ const Navbar = ({ navOpen, toggleNav }) => {
         transition-transform duration-300 ease-in-out
         ${navOpen ? "translate-x-0 " : "-translate-x-full"}
       `}
-      >
-        <span onClick={toggleNav}>
-          {navOpen ? (
-            <FontAwesomeIcon icon={faTimes} />
-          ) : (
-            <FontAwesomeIcon icon={faBars} />
-          )}
-        </span>
-      </div>
+      ></div>
     </div>
   );
 };

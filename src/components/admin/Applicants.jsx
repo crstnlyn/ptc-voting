@@ -51,55 +51,55 @@ const Applicants = () => {
   };
 
   return (
-    <div className="min-w-full  p-4 bg-base-100">
+    <div className="min-w-full p-4 bg-base-100">
       {loading ? (
-        <div className="w-full flex align-center justify-center">
-          <span className="loading loading-spinner text-success"></span>
+        <div className="w-full flex items-center justify-center py-8">
+          <span className="loading loading-spinner text-success loading-lg"></span>
         </div>
       ) : (
         <>
           {applicants.length === 0 ? (
-            <p className="text-gray-700 font-bold text-center">
+            <p className="text-gray-700 font-bold text-center text-sm sm:text-base">
               No Applicant/s
             </p>
           ) : (
             applicants.map((applicant) => (
               <div
-                className="collapse collapse-arrow bg-base-100 shadow-md rounded-xl mb-3"
+                className="collapse collapse-arrow bg-base-100 shadow-md rounded-xl mb-4"
                 key={applicant.id}
               >
                 <input type="checkbox" />
-                <div className="collapse-title text-lg font-semibold relative flex justify-between">
-                  <div className="">
-                    <h1>
-                      {applicant.firstname +
-                        " " +
-                        applicant.middleName +
-                        " " +
-                        applicant.lastname}
+
+                <div className="collapse-title flex flex-col-reverse  sm:flex-row justify-between items-center sm:items-start text-center sm:text-left gap-4 sm:gap-0 ">
+                  <div>
+                    <h1 className="text-lg sm:text-xl font-semibold">
+                      {`${applicant.firstname} ${applicant.middleName} ${applicant.lastname}`}
                     </h1>
                     <p
-                      className={`text-xs ${getColorClass(applicant.position)}`}
+                      className={`text-xs sm:text-sm ${getColorClass(
+                        applicant.position
+                      )}`}
                     >
                       {applicant.position}
                     </p>
-                    <p className="text-xs p-1">
+                    <p className="text-xs sm:text-sm text-gray-600 ml-1">
                       {applicant.course + " - " + applicant.yearLevel}
                     </p>
                   </div>
 
-                  <div className="shadow-md rounded-full">
+                  <div className="shadow-md rounded-full flex-shrink-0 ">
                     <img
                       src={applicant.profilePic}
                       alt=""
-                      className="rounded-full w-20 h-20"
+                      className="rounded-full w-20 h-20 sm:w-20 sm:h-20 object-cover"
                     />
                   </div>
                 </div>
+
                 <div className="collapse-content">
-                  <div className="card bg-base-200 p-4 rounded-xl mb-3">
+                  <div className="card bg-base-200 p-4 rounded-xl mb-3 text-sm sm:text-base">
                     <p>
-                      <span className="font-semibold">StudentID: </span>
+                      <span className="font-semibold">Student ID: </span>
                       {applicant.studentID}
                     </p>
                     <p>
@@ -115,9 +115,10 @@ const Applicants = () => {
                       {applicant.phoneNumber}
                     </p>
                   </div>
-                  <div className="btn-grp flex gap-2 w-auto justify-end mt-4">
+
+                  <div className="flex flex-col sm:flex-row gap-2 sm:justify-end mt-4 w-full ">
                     <button
-                      className="btn btn-secondary btn-wide"
+                      className="btn btn-secondary lg:btn-wide sm:w-auto"
                       onClick={() => handleStatus(applicant.id, "reject")}
                       disabled={btnLoading[applicant.id]}
                     >
@@ -129,14 +130,14 @@ const Applicants = () => {
                     </button>
 
                     <button
-                      className="btn btn-success btn-wide text-base-100/80"
+                      className="btn btn-success text-base-100 lg:btn-wide sm:w-auto"
                       onClick={() => handleStatus(applicant.id, "approved")}
                       disabled={btnLoading[applicant.id]}
                     >
                       {btnLoading[applicant.id] === "approved" ? (
                         <span className="loading loading-spinner loading-sm"></span>
                       ) : (
-                        "Approved"
+                        "Approve"
                       )}
                     </button>
                   </div>

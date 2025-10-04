@@ -112,20 +112,21 @@ const ManageAdmin = () => {
   return (
     <div className="min-w-full p-4 bg-base-100">
       <div className="card shadow-md mt-2">
-        <div className="card-body flex-row justify-between ">
-          <div className="card-title">
-            <UserLock />
+        <div className="card-body flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="card-title flex items-center gap-2">
+            <UserLock className="text-info" />
             <h1 className="text-xl font-bold">Manage Admins</h1>
           </div>
-          <div className="btngrp flex gap-4">
+
+          <div className="btngrp flex flex-wrap gap-3 ">
             <button
-              className="btn btn-success text-base-100"
+              className="btn btn-success text-base-100 flex items-center gap-2 w-full lg:w-auto"
               onClick={() => document.getElementById("my_modal_3").showModal()}
             >
               <Plus /> Add Admin
             </button>
             <button
-              className="btn btn-error text-base-100"
+              className="btn btn-error text-base-100 flex items-center gap-2 w-full lg:w-auto"
               onClick={() =>
                 document.getElementById("changePassword").showModal()
               }
@@ -136,37 +137,36 @@ const ManageAdmin = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto shadow-md rounded-box mt-2">
-        <table className="table table-zebra">
-          <thead>
+      <div className="overflow-x-auto shadow-md rounded-box mt-4 border border-base-200">
+        <table className="table table-zebra w-full lg:table-md table-sm">
+          <thead className="bg-base-200">
             <tr>
-              <th></th>
-              <th className="text-center">Fullname</th>
+              <th className="text-center w-12">#</th>
+              <th className="text-center">Full Name</th>
               <th className="text-center">Email</th>
               <th className="text-center">Date Created</th>
-              <th className="w-30 text-center">Action</th>
+              <th className="text-center w-28">Action</th>
             </tr>
           </thead>
           <tbody>
             {admins.map((a, i) => (
               <tr key={a.id}>
-                <th>{i + 1}</th>
+                <th className="text-center">{i + 1}</th>
                 <td className="text-center">{a.fullname || "N/A"}</td>
-                <td className="text-center">{a.email}</td>
+                <td className="text-center break-words">{a.email}</td>
                 <td className="text-center">
                   {a.createdAt ? a.createdAt.toDate().toLocaleString() : ""}
                 </td>
                 <td className="text-center">
                   <button
-                    className="btn  btn-circle btn-xs btn-error text-base-100 "
+                    className="btn btn-circle btn-xs btn-error text-base-100"
                     onClick={() => {
                       setSelectedAdminId(a.id);
                       setSelectedAdminName(a.fullname);
                       document.getElementById("removeAdmin").showModal();
                     }}
                   >
-                    {" "}
-                    <X className="h-4 " />
+                    <X className="h-4" />
                   </button>
                 </td>
               </tr>
@@ -175,28 +175,27 @@ const ManageAdmin = () => {
         </table>
       </div>
 
-      {/* Modals */}
+      {/* ===== Add Admin Modal ===== */}
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
           {modalLoading ? (
-            <div className="w-full h-full flex items-center justify-center flex-col">
+            <div className="w-full h-full flex flex-col items-center justify-center">
               <h1>Loading...</h1>
-              <div className="loading loading-spinner text-success"></div>
+              <div className="loading loading-spinner text-success mt-2"></div>
             </div>
           ) : (
             <>
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                   ✕
                 </button>
               </form>
-              <div className=" flex gap-2 text-lg mb-2">
+              <div className="flex items-center gap-2 text-lg mb-2">
                 <UserPlus />
                 <h1>Add New Admin</h1>
               </div>
 
-              <form action="" onSubmit={handleAddAdmin}>
+              <form onSubmit={handleAddAdmin}>
                 <fieldset className="fieldset">
                   <label className="label">Fullname</label>
                   <input
@@ -205,6 +204,7 @@ const ManageAdmin = () => {
                     placeholder="Fullname"
                     onChange={(e) => setFullname(e.target.value)}
                   />
+
                   <label className="label">Email</label>
                   <input
                     type="email"
@@ -212,6 +212,7 @@ const ManageAdmin = () => {
                     placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+
                   <label className="label">Password</label>
                   <input
                     type="password"
@@ -219,7 +220,8 @@ const ManageAdmin = () => {
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <button className="btn btn-success text-base-100 mt-4">
+
+                  <button className="btn btn-success text-base-100 mt-4 w-full">
                     Confirm
                   </button>
                 </fieldset>
@@ -229,28 +231,26 @@ const ManageAdmin = () => {
         </div>
       </dialog>
 
-      {/*  modal 2 */}
       <dialog id="changePassword" className="modal">
         <div className="modal-box">
           {modalLoading ? (
-            <div className="w-full h-full flex items-center justify-center flex-col">
+            <div className="w-full h-full flex flex-col items-center justify-center">
               <h1>Loading...</h1>
-              <div className="loading loading-spinner text-success"></div>
+              <div className="loading loading-spinner text-success mt-2"></div>
             </div>
           ) : (
             <>
-              {" "}
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                   ✕
                 </button>
               </form>
-              <div className=" flex gap-2 text-lg mb-2">
+              <div className="flex items-center gap-2 text-lg mb-2">
                 <UserPen />
                 <h1>Change Password</h1>
               </div>
-              <form action="" onSubmit={handleChangePassword}>
+
+              <form onSubmit={handleChangePassword}>
                 <fieldset className="fieldset">
                   <label className="label">Current Password</label>
                   <input
@@ -259,6 +259,7 @@ const ManageAdmin = () => {
                     placeholder="Current Password"
                     onChange={(e) => setCurrentPassword(e.target.value)}
                   />
+
                   <label className="label">New Password</label>
                   <input
                     type="password"
@@ -266,7 +267,8 @@ const ManageAdmin = () => {
                     placeholder="New Password"
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
-                  <button className="btn btn-error text-base-100 mt-4">
+
+                  <button className="btn btn-error text-base-100 mt-4 w-full">
                     Confirm
                   </button>
                 </fieldset>
@@ -278,26 +280,25 @@ const ManageAdmin = () => {
 
       <dialog id="removeAdmin" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Remove Admin</h3>
+          <h3 className="font-bold text-lg text-error">Remove Admin</h3>
           <p className="py-4">
-            Are you sure you want to remove {selectedAdminName}?
+            Are you sure you want to remove{" "}
+            <span className="font-semibold">{selectedAdminName}</span>?
           </p>
           <div className="modal-action flex gap-2">
-            {/* Confirm */}
             <button
-              onClick={() => handleRemoveAdmin(selectedAdminId)} // 👈 pass the admin id
+              onClick={() => handleRemoveAdmin(selectedAdminId)}
               className="btn btn-error text-white"
             >
               Confirm
             </button>
-
-            {/* Close */}
             <form method="dialog">
               <button className="btn">Close</button>
             </form>
           </div>
         </div>
       </dialog>
+
       <ToastContainer />
     </div>
   );

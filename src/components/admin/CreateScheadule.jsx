@@ -51,7 +51,7 @@ const CreateSchedule = () => {
   }, []);
 
   return (
-    <div className=" w-full bg-base-100 ">
+    <div className=" min-w-full bg-base-100 ">
       <div className="grid grid-cols-5 grid-rows-4 gap-4">
         <div className="col-span-5">
           <div className="card bg-base-100 shadow-sm">

@@ -15,8 +15,8 @@ const PartialResult = () => {
     );
   }
   return (
-    <div className="min-w-full h-full">
-      <div className=" relative h-50 flex flex-col items-center justify-center p-10 ">
+    <div className="min-w-full ">
+      <div className=" relative lg:h-50 flex flex-col items-center justify-center p-10 ">
         <div
           className=""
           style={{
@@ -25,8 +25,8 @@ const PartialResult = () => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             filter: "blur(5px)",
-            top: 0, // ✅ Added
-            left: 0, // ✅ Added
+            top: 0,
+            left: 0,
             width: "100%",
             height: "100%",
             zIndex: -1,
@@ -64,7 +64,7 @@ const PartialResult = () => {
           ></div>
         </div>
       </div>
-      <div className="grid grid-cols-8  auto-rows-auto gap-4 ">
+      <div className="lg:grid grid-cols-8  auto-rows-auto gap-4  ">
         <div className="col-span-3 col-start-2 p-4 rounded-box ">
           <h1 className="text-center text-xl bg-primary rounded-tl-lg rounded-tr-lg text-base-100 font-bold">
             President
