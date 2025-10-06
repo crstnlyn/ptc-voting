@@ -45,11 +45,16 @@ const Registration = () => {
     <>
       {loading && <Loading />}
       <div
-        className="min-h-screen flex justify-center bg-left bg-cover relative"
-        style={{ backgroundImage: "url('/FuturePtc2.png')" }}
+        className="min-h-screen flex justify-center bg-left bg-cover relative sm:flex-row flex-col"
+        style={{
+          backgroundImage: "url('/FuturePtc2.png')",
+          backgroundPosition: "center",
+        }}
       >
-        <div className="flex-1 flex flex-col justify-center items-center bg-gradient-to-br from-[rgba(38_184_28)] text-white p-10">
-          <h1 className="text-5xl font-bold mb-6">PTCian's Choice</h1>
+        <div className="flex-1 flex flex-col justify-center items-center bg-gradient-to-br from-[rgba(38_184_28)] text-white p-10 ">
+          <h1 className="text-5xl font-bold mb-6 text-center sm:text-left ">
+            PTCian's Choice
+          </h1>
           <p className="text-lg max-w-lg text-center">
             Your Voice, Your Vote, Your Future.
           </p>
