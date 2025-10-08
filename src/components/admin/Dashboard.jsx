@@ -100,12 +100,17 @@ const Dashboard = () => {
                     <div
                       className="w-full h-3 bg-success rounded-full"
                       style={{
-                        width: `${(votescastedCount / userCount) * 100}%`,
+                        width:
+                          userCount === 0
+                            ? "0%"
+                            : `${(votescastedCount / userCount) * 100}%`,
                       }}
                     ></div>
                   </div>
                   <span className="text-xs font-medium text-success ">
-                    {((votescastedCount / userCount) * 100).toFixed(2)}%
+                    {userCount === 0
+                      ? "0%"
+                      : `${((votescastedCount / userCount) * 100).toFixed(2)}%`}
                   </span>
                 </div>
               }

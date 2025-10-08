@@ -3,7 +3,14 @@ import useCandidates from "../hooks/useCandidates";
 import { useState } from "react";
 import { TriangleAlert } from "lucide-react";
 import { toast } from "react-toastify";
-import { collection, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../config/Firebase";
 
 const Candidates = () => {
   const { groupedCandidates, loading } = useCandidates();
@@ -20,9 +27,9 @@ const Candidates = () => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const candidatesSnap = await getDocs(collection(db, "candidates"));
+      const candidatesSnap = await getDocs(collection(db, "Candidates"));
       const deletePromises = candidatesSnap.docs.map((d) =>
-        deleteDoc(doc(db, "candidates", d.id))
+        deleteDoc(doc(db, "Candidates", d.id))
       );
 
       await Promise.all(deletePromises);
@@ -46,11 +53,13 @@ const Candidates = () => {
 
       const updatePromises = userSnapshot.docs.map(async (userDoc) => {
         const userRef = doc(db, "Users", userDoc.id);
-        await updateDoc(userRef, { isVoted: false, isCandiate: false });
+        await updateDoc(userRef, { isVoted: false, isCandidate: false });
       });
 
       await Promise.all(updatePromises);
-      toast.success("All student votes have been reset");
+      toast.success("All student votes have been reset", {
+        position: "top-center",
+      });
     } catch (error) {
       toast.error("Error in reseting the votes of all student");
     }

@@ -53,14 +53,21 @@ const PartialResult = () => {
             Voters
           </h1>
           <h2 className="text-center text-xl text-success  font-black ">
-            {((votecastedCount / userCount) * 100).toFixed(2)}%
+            {userCount === 0
+              ? "0%"
+              : `${((votecastedCount / userCount) * 100).toFixed(2)}%`}
           </h2>
         </div>
 
         <div className="w-full h-4 bg-gray-200 rounded-full">
           <div
             className=" h-4 bg-success rounded-full"
-            style={{ width: `${(votecastedCount / userCount) * 100}%` }}
+            style={{
+              width:
+                userCount === 0
+                  ? "0%"
+                  : `${(votecastedCount / userCount) * 100}%`,
+            }}
           ></div>
         </div>
       </div>

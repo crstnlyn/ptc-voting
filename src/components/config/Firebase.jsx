@@ -5,13 +5,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnFLrc3qynBLtCArA4g6aazWBJ1k3a2-c",
-  authDomain: "voting-system-313e9.firebaseapp.com",
-  projectId: "voting-system-313e9",
-  storageBucket: "voting-system-313e9.firebasestorage.app",
-  messagingSenderId: "601269247173",
-  appId: "1:601269247173:web:1102bd2f5a9c7c7c9464ac",
-  measurementId: "G-WG9E968BL3",
+  apiKey: "AIzaSyCrtnmHHiBLHsXH1e6xWNZusX4LmZwj9TE",
+  authDomain: "ptcian-choice.firebaseapp.com",
+  projectId: "ptcian-choice",
+  storageBucket: "ptcian-choice.firebasestorage.app",
+  messagingSenderId: "227648071491",
+  appId: "1:227648071491:web:e7bd38f87f88c4dce771f6",
+  measurementId: "G-DEGMWCZF6W",
 };
 
 const app = initializeApp(firebaseConfig);
