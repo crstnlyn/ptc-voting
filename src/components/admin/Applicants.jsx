@@ -98,10 +98,7 @@ const Applicants = () => {
 
                 <div className="collapse-content">
                   <div className="card bg-base-200 p-4 rounded-xl mb-3 text-sm sm:text-base">
-                    <p>
-                      <span className="font-semibold">Student ID: </span>
-                      {applicant.studentID}
-                    </p>
+                    
                     <p>
                       <span className="font-semibold">Section: </span>
                       {applicant.section}
@@ -110,10 +107,7 @@ const Applicants = () => {
                       <span className="font-semibold">Affiliate: </span>
                       {applicant.affiliate}
                     </p>
-                    <p>
-                      <span className="font-semibold">Phone Number: </span>
-                      {applicant.phoneNumber}
-                    </p>
+                    
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-2 sm:justify-end mt-4 w-full ">
